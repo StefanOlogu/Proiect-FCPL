@@ -10,13 +10,13 @@ public class SearchMatcherSpecTests
     [InlineData("   ")]
     public void R1_empty_query_matches_everything(string query)
     {
-        Assert.True(SearchMatcher.Create().Matches("Barnaby the Rabbit", query));
+        Assert.True(SearchMatcher.Create().Matches("Mama cu Papucul", query));
     }
 
     [Fact]
     public void R2_case_is_ignored()
     {
-        Assert.True(SearchMatcher.Create().Matches("Barnaby the Rabbit", "BARNABY"));
+        Assert.True(SearchMatcher.Create().Matches("Mama cu Papucul", "PAPUCUL"));
     }
 
     [Theory]
@@ -30,19 +30,19 @@ public class SearchMatcherSpecTests
     [Fact]
     public void R4_every_word_must_occur()
     {
-        Assert.False(SearchMatcher.Create().Matches("Grizzly the Bear", "grizzly rabbit"));
+        Assert.False(SearchMatcher.Create().Matches("Vecinul cu Bormașina", "vecinul doge"));
     }
 
     [Fact]
     public void R5_word_order_does_not_matter()
     {
-        Assert.True(SearchMatcher.Create().Matches("Grizzly the Bear", "bear grizzly"));
+        Assert.True(SearchMatcher.Create().Matches("This Is Fine Dog", "dog fine"));
     }
 
     [Fact]
     public void R6_word_can_be_inside_a_longer_word()
     {
-        Assert.True(SearchMatcher.Create().Matches("Pikachu", "chu"));
+        Assert.True(SearchMatcher.Create().Matches("Stonks Man", "onk"));
     }
 
     [Fact]
@@ -51,7 +51,7 @@ public class SearchMatcherSpecTests
         var matcher = SearchMatcher.Create();
         var result = true;
 
-        var ex = Record.Exception(() => { result = matcher.Matches(null, "bear"); });
+        var ex = Record.Exception(() => { result = matcher.Matches(null, "doge"); });
 
         Assert.Null(ex);
         Assert.False(result);
@@ -60,6 +60,6 @@ public class SearchMatcherSpecTests
     [Fact]
     public void R8_null_query_throws()
     {
-        Assert.Throws<ArgumentNullException>(() => SearchMatcher.Create().Matches("Grizzly the Bear", null!));
+        Assert.Throws<ArgumentNullException>(() => SearchMatcher.Create().Matches("Trollface", null!));
     }
 }

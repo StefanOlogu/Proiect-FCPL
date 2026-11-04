@@ -1,12 +1,12 @@
 namespace Capstone.Core.Model;
 
-/// <summary>The parent: one night shift and the animatronics in the building that night.</summary>
+/// <summary>The parent: one night shift and the personalities around the bar that night.</summary>
 public sealed class Night : IDescribable
 {
     public const int FirstNight = 1;
     public const int LastNight = 7;
 
-    private readonly List<Animatronic> _animatronics = [];
+    private readonly List<Personality> _personalities = [];
 
     public Night(int number)
     {
@@ -17,16 +17,16 @@ public sealed class Night : IDescribable
 
     public int Number { get; }
 
-    public IReadOnlyList<Animatronic> Animatronics => _animatronics.ToArray();
+    public IReadOnlyList<Personality> Personalities => _personalities.ToArray();
 
-    /// <summary>The animatronics that will actually move tonight.</summary>
-    public IReadOnlyList<Animatronic> Active => _animatronics.Where(a => a.IsActiveOn(Number)).ToArray();
+    /// <summary>The personalities that will actually move tonight.</summary>
+    public IReadOnlyList<Personality> Active => _personalities.Where(p => p.IsActiveOn(Number)).ToArray();
 
-    public void Add(Animatronic animatronic)
+    public void Add(Personality personality)
     {
-        ArgumentNullException.ThrowIfNull(animatronic);
-        _animatronics.Add(animatronic);
+        ArgumentNullException.ThrowIfNull(personality);
+        _personalities.Add(personality);
     }
 
-    public string Describe() => $"Night {Number} · {Active.Count} of {_animatronics.Count} animatronics active";
+    public string Describe() => $"Night {Number} · {Active.Count} of {_personalities.Count} personalities active";
 }

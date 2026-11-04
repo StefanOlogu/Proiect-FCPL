@@ -1,0 +1,17 @@
+[
+  { "kind": "local", "id": "mama-papuc", "name": "Mama cu Papucul", "entrance": "FrontDoor", "aggression": 6, "firstNight": 1, "catchphrase": "Vino-ncoace, că nu te bat!", "neighbourhood": "Mazepa" },
+  { "kind": "local", "id": "vecin-bormasina", "name": "Vecinul cu Bormașina", "entrance": "CellarHatch", "aggression": 4, "firstNight": 1, "catchphrase": "Duminică, 8 dimineața. Perfect.", "neighbourhood": "Țiglina" },
+  { "kind": "local", "id": "bunica-sarmale", "name": "Bunica cu Sarmale", "entrance": "KitchenDoor", "aggression": 3, "firstNight": 2, "catchphrase": "Ai mâncat, mamă? Mai ia una.", "neighbourhood": "Micro 19" },
+  { "kind": "local", "id": "nea-taxi", "name": "Nea Taximetristul", "entrance": "FrontDoor", "aggression": 5, "firstNight": 3, "catchphrase": "Știu eu o scurtătură pe la Siderurgică.", "neighbourhood": "Siderurgiștilor" },
+  { "kind": "local", "id": "pescarul", "name": "Pescarul de pe Faleză", "entrance": "Terrace", "aggression": 4, "firstNight": 2, "catchphrase": "Azi n-a tras nimic. Dă-mi o bere.", "neighbourhood": "Faleza Dunării" },
+  { "kind": "local", "id": "curentul", "name": "Curentul", "entrance": "Terrace", "aggression": 7, "firstNight": 4, "neighbourhood": "Bădălan" },
+
+  { "kind": "meme", "id": "stonks", "name": "Stonks Man", "entrance": "FrontDoor", "aggression": 9, "firstNight": 1, "catchphrase": "Bere la jumătate de preț? Stonks.", "originYear": 2017 },
+  { "kind": "meme", "id": "this-is-fine", "name": "This Is Fine Dog", "entrance": "KitchenDoor", "aggression": 8, "firstNight": 2, "catchphrase": "This is fine.", "originYear": 2013 },
+  { "kind": "meme", "id": "doge", "name": "Doge", "entrance": "Terrace", "aggression": 10, "firstNight": 1, "catchphrase": "Much bar. Very night. Wow.", "originYear": 2013 },
+  { "kind": "meme", "id": "trollface", "name": "Trollface", "entrance": "CellarHatch", "aggression": 11, "firstNight": 3, "catchphrase": "Problem?", "originYear": 2008 },
+  { "kind": "meme", "id": "sigma", "name": "Sigma Grindset", "entrance": "CellarHatch", "aggression": 12, "firstNight": 5, "catchphrase": "Sigma nu doarme. Sigma bea apă plată.", "originYear": 2021 },
+  { "kind": "meme", "id": "npc", "name": "The NPC", "entrance": "KitchenDoor", "aggression": 14, "firstNight": 6, "originYear": 2018 },
+
+  { "kind": "meme", "id": "broken", "name": "Meme Without A Year", "entrance": "FrontDoor", "aggression": 5 }
+]

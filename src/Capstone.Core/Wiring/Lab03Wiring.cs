@@ -6,7 +6,7 @@ namespace Capstone.Core.Wiring;
 
 public sealed class Lab03Wiring : ILab03Wiring
 {
-    public IItemStore CreateStore() => new AnimatronicRoster();
+    public IItemStore CreateStore() => new PersonalityRoster();
 
     public IItem CreateSample(int seed) => Lab02Wiring.Sample(seed);
 
