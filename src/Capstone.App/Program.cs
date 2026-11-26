@@ -2,13 +2,12 @@ using System.Text.Json;
 using Capstone.Core.Game;
 using Capstone.Core.Json;
 using Capstone.Core.Model;
+using Capstone.Core.Queries;
 using Capstone.Core.Storage;
 
 // Night Shift at Bar "La Faleză", Galați. Run it with:
 //   dotnet run --project src/Capstone.App            → night 1
 //   dotnet run --project src/Capstone.App -- 4       → night 4
-//
-// Keep this file short. Real logic belongs in Capstone.Core, where the tests can reach it.
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
@@ -41,6 +40,14 @@ foreach (var personality in roster.Filter(item => item is Personality).Cast<Pers
 var nightNumber = args.Length > 0 && int.TryParse(args[0], out var n) ? Math.Clamp(n, Night.FirstNight, Night.LastNight) : Night.FirstNight;
 var night = new Night(nightNumber);
 roster.ForEach(item => { if (item is Personality p) night.Add(p); });
+
+// Five questions a bartender asks before a shift (Lab 07).
+Console.WriteLine();
+Console.WriteLine($"Most dangerous tonight: {string.Join(", ", roster.ThreatsOn(nightNumber).Take(3).Select(p => $"{p.Name} ({p.Aggression})"))}");
+Console.WriteLine($"Busiest entrance:       {roster.TrafficByEntrance().First().Entrance}");
+Console.WriteLine($"Locals come from:       {string.Join(", ", roster.Neighbourhoods())}");
+Console.WriteLine($"Oldest meme:            {roster.OldestMeme()?.Name ?? "none"} ({roster.OldestMeme()?.OriginYear})");
+Console.WriteLine($"No warning from:        {string.Join(", ", roster.SilentOnes().Select(p => p.Name))}");
 
 var shift = new NightShift(night, sides => Random.Shared.Next(1, sides + 1));
 shift.Moved += (p, distance) =>

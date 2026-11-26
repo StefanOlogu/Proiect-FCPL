@@ -5,7 +5,7 @@
 > **Theme:** 21 — Build a Game (a night-shift survival game)
 > **In one sentence:** survive the night shift behind the bar at "La Faleză", on the Danube promenade in Galați, by watching the cameras and closing whichever entrance a Personality (a local legend or a viral meme) is coming through, before the fuse box runs dry.
 > **Route:** project
-> **AI use:** parts of the Lab 02–06 code and tests were written with help from an AI assistant (Claude).
+> **AI use:** parts of the Lab 02–09 code and tests were written with help from an AI assistant (Claude).
 >
 > Don't write your name or your avatar here. The scoreboard is anonymous, and this file is how people would find out.
 

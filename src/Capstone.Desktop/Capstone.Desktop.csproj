@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The window (Lab 09). It holds XAML and almost nothing else: what it shows lives in Capstone.Core/ViewModels. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="Avalonia.Fonts.Inter" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Capstone.Core\Capstone.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The same starting roster the console app uses, for the very first run. -->
+    <None Include="..\Capstone.App\data\personalities.json" Link="data\personalities.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

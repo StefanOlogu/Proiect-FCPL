@@ -1,0 +1,10 @@
+<!-- Packages this capstone needs beyond the course's. Never replaced by `sq update`. -->
+<Project>
+  <ItemGroup>
+    <!-- Lab 09: the window. Avalonia runs on Linux, Windows and macOS. -->
+    <PackageVersion Include="Avalonia" Version="11.3.12" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.3.12" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.12" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.3.12" />
+  </ItemGroup>
+</Project>

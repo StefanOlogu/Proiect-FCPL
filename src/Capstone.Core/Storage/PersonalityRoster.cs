@@ -19,6 +19,9 @@ public sealed class PersonalityRoster : IItemStore, IEnumerable<IItem>
     /// </summary>
     public event Action<IItem>? ItemAdded;
 
+    /// <summary>Raised once, after an item has really left the roster. A Remove that finds nothing raises nothing.</summary>
+    public event Action<IItem>? ItemRemoved;
+
     public int Count => _ordered.Count;
 
     /// <summary>By position, in the order items were added. Out of range throws ArgumentOutOfRangeException (the list does it).</summary>
@@ -49,6 +52,7 @@ public sealed class PersonalityRoster : IItemStore, IEnumerable<IItem>
             return false;
 
         _ordered.Remove(item);
+        ItemRemoved?.Invoke(item);
         return true;
     }
 
@@ -74,7 +78,7 @@ public sealed class PersonalityRoster : IItemStore, IEnumerable<IItem>
                 yield return item;
     }
 
-    // Functions as parameters (Lab 06): the caller brings the rule, the roster runs it once per item.
+    // Functions as parameters: the caller brings the rule, the roster runs it once per item.
 
     public IReadOnlyList<IItem> Filter(Func<IItem, bool> keep)
     {

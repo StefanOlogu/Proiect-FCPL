@@ -1,0 +1,137 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Capstone.Core.ViewModels;assembly=Capstone.Core"
+        xmlns:c="clr-namespace:SharpQuest.Contracts;assembly=SharpQuest.Contracts"
+        x:Class="Capstone.Desktop.MainWindow"
+        x:DataType="vm:BarViewModel"
+        Title="{Binding Title}"
+        Width="1100" Height="700" MinWidth="820" MinHeight="520">
+
+  <TabControl Margin="8">
+
+    <!-- The roster: everything here is bound to RosterViewModel (the Lab 09 view model). -->
+    <TabItem Header="The regulars">
+      <Panel DataContext="{Binding Roster}">
+      <Grid x:DataType="vm:RosterViewModel"
+            ColumnDefinitions="280,*,300" RowDefinitions="*,Auto" Margin="0,8,0,0">
+
+        <DockPanel Grid.Column="0" Margin="0,0,12,0">
+          <TextBox DockPanel.Dock="Top" Text="{Binding Filter}" Watermark="Search (e.g. mama, doge)…" />
+          <TextBlock DockPanel.Dock="Bottom" Margin="0,6,0,0" Opacity="0.7"
+                     Text="{Binding Count, StringFormat='{}{0} showing'}" />
+          <ListBox Margin="0,8,0,0" ItemsSource="{Binding Items}" SelectedItem="{Binding Selected}">
+            <ListBox.ItemTemplate>
+              <DataTemplate x:DataType="c:IItem">
+                <TextBlock Text="{Binding DisplayName}" />
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </DockPanel>
+
+        <DockPanel Grid.Column="1" Margin="0,0,12,0">
+          <!-- Barred: thrown out, but not forgotten. Select one and let them back in. -->
+          <DockPanel DockPanel.Dock="Bottom" Height="170" Margin="0,12,0,0">
+            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,6">
+              <Button DockPanel.Dock="Right" Content="Let them back in" Command="{Binding UnbarCommand}" />
+              <TextBlock Text="Barred from the bar" FontWeight="Bold" FontSize="16" VerticalAlignment="Center" />
+            </DockPanel>
+            <ListBox ItemsSource="{Binding Barred}" SelectedItem="{Binding SelectedBarred}">
+              <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="c:IItem">
+                  <TextBlock Text="{Binding DisplayName}" />
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+          </DockPanel>
+          <Button DockPanel.Dock="Bottom" HorizontalAlignment="Left" Margin="0,8,0,0"
+                  Content="Bar them from the bar" Command="{Binding RemoveCommand}" />
+          <Border Background="#22FFFFFF" CornerRadius="6" Padding="16">
+            <TextBlock Text="{Binding Details}" TextWrapping="Wrap" FontSize="15" />
+          </Border>
+        </DockPanel>
+
+        <StackPanel Grid.Column="2" Spacing="6">
+          <TextBlock Text="A new personality" FontWeight="Bold" FontSize="16" />
+          <TextBox Text="{Binding NewName}" Watermark="Name" />
+          <CheckBox IsChecked="{Binding NewIsMeme}" Content="Viral meme (otherwise a local legend)" />
+          <TextBox Text="{Binding NewOrigin}" Watermark="Neighbourhood (local) or year (meme)" />
+          <TextBox Text="{Binding NewCatchphrase}" Watermark="Catchphrase (empty = silent)" />
+          <ComboBox ItemsSource="{Binding Entrances}" SelectedItem="{Binding NewEntrance}" HorizontalAlignment="Stretch" />
+          <TextBlock Text="Aggression (0–20)" Opacity="0.7" />
+          <NumericUpDown Value="{Binding NewAggression}" Minimum="0" Maximum="20" FormatString="0" />
+          <TextBlock Text="First night (1–7)" Opacity="0.7" />
+          <NumericUpDown Value="{Binding NewFirstNight}" Minimum="1" Maximum="7" FormatString="0" />
+          <Button Content="Add to the roster" Command="{Binding CreateCommand}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+
+        <DockPanel Grid.Row="1" Grid.ColumnSpan="3" Margin="0,10,0,0">
+          <Button DockPanel.Dock="Left" Content="Save" Command="{Binding SaveCommand}" Margin="0,0,12,0" />
+          <TextBlock Text="{Binding Status}" VerticalAlignment="Center" TextWrapping="Wrap" Opacity="0.8" />
+        </DockPanel>
+      </Grid>
+      </Panel>
+    </TabItem>
+
+    <!-- The game: bound to NightShiftViewModel. -->
+    <TabItem Header="Night shift">
+      <Panel DataContext="{Binding Night}">
+      <DockPanel x:DataType="vm:NightShiftViewModel" Margin="0,8,0,0">
+
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="12">
+          <TextBlock Text="Night" VerticalAlignment="Center" />
+          <ComboBox ItemsSource="{Binding Nights}" SelectedItem="{Binding NightNumber}" />
+          <Button Content="Close up and start the shift" Command="{Binding StartCommand}" />
+          <Button Content="Wait 15 minutes" Command="{Binding WaitCommand}" />
+          <TextBlock Text="{Binding Clock}" FontSize="22" FontWeight="Bold" VerticalAlignment="Center" Margin="16,0,0,0" />
+          <TextBlock Text="Fuse box" VerticalAlignment="Center" Margin="16,0,0,0" />
+          <ProgressBar Value="{Binding Power}" Minimum="0" Maximum="100" Width="160" VerticalAlignment="Center" />
+          <TextBlock Text="{Binding Power, StringFormat='{}{0}%'}" VerticalAlignment="Center" />
+        </StackPanel>
+
+        <TextBlock DockPanel.Dock="Top" Text="{Binding Headline}" FontSize="18" TextWrapping="Wrap" Margin="0,16" />
+
+        <ItemsControl DockPanel.Dock="Top" ItemsSource="{Binding Doors}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <UniformGrid Columns="4" />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:DoorViewModel">
+              <Border Background="#22FFFFFF" CornerRadius="6" Padding="12" Margin="0,0,8,0">
+                <StackPanel Spacing="8">
+                  <TextBlock Text="{Binding Entrance}" FontWeight="Bold" FontSize="16" />
+                  <TextBlock Text="CLOSED" Foreground="OrangeRed" FontWeight="Bold" IsVisible="{Binding IsClosed}" />
+                  <Button Content="{Binding DoorLabel}" Command="{Binding ToggleCommand}" HorizontalAlignment="Stretch" />
+                  <Button Content="Check the camera" Command="{Binding WatchCommand}" HorizontalAlignment="Stretch" />
+                  <TextBlock Text="{Binding Camera}" TextWrapping="Wrap" Opacity="0.8" />
+                </StackPanel>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Grid ColumnDefinitions="360,*" RowDefinitions="Auto,*" Margin="0,16,0,0">
+          <TextBlock Text="Before the shift" FontWeight="Bold" FontSize="16" Margin="0,0,0,8" />
+          <TextBlock Grid.Column="1" Text="What you heard" FontWeight="Bold" FontSize="16" Margin="12,0,0,8" />
+
+          <Border Grid.Row="1" Background="#22FFFFFF" CornerRadius="6" Padding="12">
+            <ItemsControl ItemsSource="{Binding Briefing}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="vm:BriefingLine">
+                  <StackPanel Margin="0,0,0,10">
+                    <TextBlock Text="{Binding Question}" Opacity="0.7" />
+                    <TextBlock Text="{Binding Answer}" TextWrapping="Wrap" />
+                  </StackPanel>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </Border>
+
+          <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Log}" Margin="12,0,0,0" />
+        </Grid>
+      </DockPanel>
+      </Panel>
+    </TabItem>
+  </TabControl>
+</Window>
